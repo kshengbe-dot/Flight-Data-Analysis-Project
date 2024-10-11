@@ -50,7 +50,7 @@ _A Client has requested this analysis and this is your one shot of what you woul
 # Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
 
 # Include and execute your code here
-df = pd.read_csv("https://raw.githubusercontent.com/byuidatascience/data4python4ds/master/data-raw/mpg/mpg.csv")
+# df = pd.read_csv("https://raw.githubusercontent.com/byuidatascience/data4python4ds/master/data-raw/mpg/mpg.csv")
 ```
 
 __Highlight the Questions and Tasks__
@@ -90,9 +90,9 @@ __COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
 #| fig-align: center
 # Include and execute your code here
 
-(
-  ggplot(df.head(500), aes(x='displ', y='hwy')) + geom_point()
-)
+# (
+#   ggplot(df.head(500), aes(x='displ', y='hwy')) + geom_point()
+# )
 ```
 
 ## Question|Task 3
@@ -107,15 +107,15 @@ __COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
 #| tbl-cap: "table example"
 #| tbl-cap-location: top
 # Include and execute your code here
-mydat = (df.head(1000)
-    .groupby('manufacturer')
-    .sum()
-    .reset_index()
-    .tail(10)
-    .filter(["manufacturer","displ","cty", "hwy"])
-)
+# mydat = (df.head(1000)
+#     .groupby('manufacturer')
+#     .sum()
+#     .reset_index()
+#     .tail(10)
+#     .filter(["manufacturer","displ","cty", "hwy"])
+# )
 
-display(mydat)
+# display(mydat)
 
 ```
 

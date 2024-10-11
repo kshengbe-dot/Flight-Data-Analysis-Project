@@ -52,7 +52,9 @@ _A Client has requested this analysis and this is your one shot of what you woul
 # Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
 
 # Include and execute your code here
-df = pd.read_csv("https://raw.githubusercontent.com/byuidatascience/data4python4ds/master/data-raw/mpg/mpg.csv")
+from palmerpenguins import load_penguins
+penguins = load_penguins()
+penguins
 ```
 
 __Highlight the Questions and Tasks__
@@ -75,8 +77,20 @@ _include figures in chunks and discuss your findings in the figure._
 #| label: Q1
 #| code-summary: Read and format data
 # Include and execute your code here
-
-
+LetsPlot.setup_html()
+(
+    ggplot(data=penguins, mapping=aes(x="flipper_length_mm", y="body_mass_g"))
+    + geom_point(aes(color="species", shape="species"))
+    + geom_smooth(method="lm")
+    + labs(
+        title="Body mass and flipper length",
+        subtitle="Dimensions for Adelie, Chinstrap, and Gentoo Penguins",
+        x="Flipper length (mm)",
+        y="Body mass (g)",
+        color="Species",
+        shape="Species",
+    )
+)
 ```
 
 ## Question|Task 2
@@ -92,9 +106,8 @@ __COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
 #| fig-align: center
 # Include and execute your code here
 
-(
-  ggplot(df.head(500), aes(x='displ', y='hwy')) + geom_point()
-)
+penguins["species"] = penguins["species"].astype("category")
+penguins.head()
 ```
 
 ## Question|Task 3
@@ -109,15 +122,10 @@ __COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
 #| tbl-cap: "table example"
 #| tbl-cap-location: top
 # Include and execute your code here
-mydat = (df.head(1000)
-    .groupby('manufacturer')
-    .sum()
-    .reset_index()
-    .tail(10)
-    .filter(["manufacturer","displ","cty", "hwy"])
-)
 
-display(mydat)
+penguins["species"] = penguins["species"].astype("category")
+penguins.head()
+
 
 ```
 
