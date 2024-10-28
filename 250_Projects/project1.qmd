@@ -89,9 +89,10 @@ If you talked to someone named Brittany on the phone, what is your guess of his 
 # | fig-cap: "My useless chart"
 # | fig-align: center
 # Include and execute your code here
+Brittany_df = df[df['name']=="Brittany"]
 
 (
-  ggplot(df.head(500), aes(x='displ', y='hwy')) + geom_point()
+  ggplot(Brittany_df, aes(x='year', y='Total')) + geom_line()+geom_vline(xintercept=1990, colour="blue")
 )
 ```
 
