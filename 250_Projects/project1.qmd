@@ -99,7 +99,7 @@ Brittany_df = df[df['name']=="Brittany"]
 ## Question|Task 3
 
 __COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
-
+<!-- Mary, Martha, Peter, and Paul are all Christian names. From 1920 - 2000, compare the name usage of each of the four names in a single chart. What trends do you notice? -->
 - _PROVIDE TABLES THAT HELP ADDRESS THE QUESTIONS AND TASKS (IF APPLICABLE)._
 
 ```{python}
