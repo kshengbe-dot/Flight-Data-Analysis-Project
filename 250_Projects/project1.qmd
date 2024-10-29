@@ -108,15 +108,16 @@ __COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
 #| tbl-cap: "table example"
 #| tbl-cap-location: top
 # Include and execute your code here
-# mydat = (df.head(1000)
-#     .groupby('manufacturer')
-#     .sum()
-#     .reset_index()
-#     .tail(10)
-#     .filter(["manufacturer","displ","cty", "hwy"])
-# )
+mydat = (df.loc[
+  (df["name"].isin(["Mary","Martha","Peter", "Paul"]))&
+  (df["year"] >=1920) &
+  (df["year"]<=2000),
+]
+.groupby("name")
+.sum()
+)
 
-# display(mydat)
+display(mydat)
 
 ```
 
