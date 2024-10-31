@@ -112,12 +112,10 @@ mydat = (df.loc[
   (df["name"].isin(["Mary","Martha","Peter", "Paul"]))&
   (df["year"] >=1920) &
   (df["year"]<=2000),
-]
-.groupby("name")
-.sum()
-)
+])
+(ggplot(mydat, aes(x='year', y='Total', color="name")) + geom_line())
 
-display(mydat)
+# display(mydat)
 
 ```
 
