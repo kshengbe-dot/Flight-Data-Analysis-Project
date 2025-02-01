@@ -1,0 +1,252 @@
+
+
+### Paste in a template
+---
+title: "Client Report - [Names]"
+subtitle: "Coding challange"
+author: "[Shegbe Koker]"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+_THIS `.qmd` IS INSTRUCTIONAL AND SHOULD `NOT` BE USED TO WRITE YOUR REPORTS (EXCEPTION - PROJECT 0). THERE IS ANOTHER TEMPLATE FILE FOR THAT. YOU WILL NEED TO `PREVIEW` THE REPORT TO PRODUCE A `.html` FILE. YOU WILL SUBMIT THE `.html` FILE ON CANVAS._
+
+```{python}
+#| label: libraries
+#| include: false
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+LetsPlot.setup_html(isolated_frame=True)
+```
+
+
+## Elevator pitch
+_A SHORT (2-3 SENTENCES) PARAGRAPH THAT `DESCRIBES KEY INSIGHTS` TAKEN FROM METRICS IN THE PROJECT RESULTS THINK TOP OR MOST IMPORTANT RESULTS._ (Note: this is not a summary of the project, but a summary of the results.)
+
+_A Client has requested this analysis and this is your one shot of what you would say to your boss in a 2 min elevator ride before he takes your report and hands it to the client._
+
+```{python}
+#| label: project-data
+#| code-summary: Read and format project data
+
+
+df = pd.read_csv("https://github.com/byuidatascience/data4names/raw/master/data-raw/names_year/names_year.csv")
+```
+
+__Highlight the Questions and Tasks__
+
+## Question|Task 1
+
+__COPY PASTE QUESTION|TASK 1 FROM THE PROJECT HERE__
+
+Calculate the mean after replacing the missing values with the median (2 decimal places):
+```{python}
+import pandas as pd
+import numpy as np
+
+# Create the Series
+probLem = pd.Series([np.nan, 15, 22, 45, 31, np.nan, 85, 38, 129, 8000, 21, 21])
+
+# Calculate the median (ignoring NaN values)
+median_value = probLem.median()
+
+# Replace NaN values with the median
+probLem_filled = probLem.fillna(median_value)
+
+# Calculate the mean of the updated Series
+mean_value = probLem_filled.mean()
+
+# Print the mean rounded to 2 decimal places
+print(round(mean_value, 2))
+
+```
+
+
+```{python}
+# Inspect the dataset
+print(df.head())  # View the first few rows
+print(df.info())  # Check the structure and data types
+print(df.describe())  # Get a statistical summary of numerical columns
+
+```
+
+```{python}
+print(df.shape)
+
+```
+
+```{python}
+# Filter the DataFrame for the name 'Oliver'
+oliver_utah = df[df['name'] == 'Oliver']
+
+# Sum the counts for Utah (column 'UT')
+total_oliver_utah = oliver_utah['UT'].sum()
+
+print(total_oliver_utah)
+
+
+# Filter the DataFrame for the name 'Felisha'
+felisha_data = df[df['name'] == 'Felisha']
+
+# Find the earliest year
+earliest_year_felisha = felisha_data['year'].min()
+
+print(earliest_year_felisha)
+
+
+```
+
+```{python}
+# Filter the DataFrame for the name 'Israel'
+israel_data = df[df['name'] == 'Israel']
+
+israel_birth_year = israel_data[israel_data['year'] == 2005]
+
+# Get the total number of occurrences in the birth year
+birth_year_total = israel_birth_year['Total'].sum()
+
+print(f"Total occurrences of the name 'Israel' in 2005: {birth_year_total}")
+
+```
+
+## The chart shows the historical trend of the name "Israel," with a red dashed line marking 2005. In 2005, the name "Israel" was used 1,435.5 times across the U.S. This usage is relatively high compared to previous decades, indicating that "Israel" gained popularity in the late 20th and early 21st centuries. Historically, the name has shown steady growth, with occasional fluctuations over time.
+
+
+```{python}
+# Filter data for the name 'Israel'
+israel_data = df[df['name'] == 'Israel']
+
+# Group by year and sum the total occurrences
+israel_trend = israel_data.groupby('year')['Total'].sum().reset_index()
+
+# Plot the historical trend
+ggplot(israel_trend, aes(x='year', y='Total')) + \
+    geom_line(color='blue') + \
+    geom_vline(xintercept=2005, linetype='dashed', color='red', size=1) + \
+    ggtitle("Historical Trend of the Name 'Israel'") + \
+    xlab("Year") + ylab("Total Count")
+
+
+```
+
+
+
+## Question|Task 2
+
+__COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
+If you talked to someone named Brittany on the phone, what is your guess of his or her age? What ages would you not guess?
+
+```{python}
+# | label: Q1-chart
+# | code-summary: plot example
+# | fig-cap: "My useless chart"
+# | fig-align: center
+# Include and execute your code here
+
+#import pandas as pd
+
+
+import pandas as pd
+import numpy as np
+from lets_plot import *
+
+
+Brittany_df = df[df['name']=="Brittany"]
+
+(
+  ggplot(Brittany_df, aes(x='year', y='Total')) + geom_line()+geom_vline(xintercept=1990, colour="blue")
+)
+
+```
+
+## Question|Task 3
+
+__COPY PASTE QUESTION|TASK 3 FROM THE PROJECT HERE__
+
+```{python}
+#| label: Q1-table
+#| code-summary: table example
+#| tbl-cap: "table example"
+#| tbl-cap-location: top
+# Include and execute your code here
+mydat = (df.loc[
+  (df["name"].isin(["Mary","Martha","Peter", "Paul"]))&
+  (df["year"] >=1920) &
+  (df["year"]<=2000),
+])
+(ggplot(mydat, aes(x='year', y='Total', color="name")) + geom_line())
+
+# display(mydat)
+
+```
+
+
+
+##Analysis & Interpretation:
+The red dashed line marks 2013, the release year of Frozen.
+Before 2013, the name Elsa had relatively low usage.
+After 2013, there is likely a sharp increase in popularity due to the influence of Frozen.
+This shows a clear movie-driven effect on baby name trends!
+```{python}
+# Filter the DataFrame for the name 'Elsa'
+Elsa_df = df[df['name'] == "Elsa"]
+
+# Plot the trend
+(
+    ggplot(Elsa_df, aes(x='year', y='Total')) + 
+    geom_line(color='cyan', size=1) + 
+    geom_vline(xintercept=2013, colour="red", linetype='dashed', size=1) +  # Mark the release of Frozen
+    ggtitle("Impact of 'Frozen' on the Name 'Elsa'") + 
+    xlab("Year") + 
+    ylab("Total Count")
+)
+
+
+```
+
+
+```{python}
+from lets_plot import *
+import pandas as pd
+
+# Ensure Lets-Plot is set up
+LetsPlot.setup_html(isolated_frame=True)
+
+# Filter data for the name 'Elliot'
+elliot_df = df[df['name'] == "Elliot"]
+
+# Create the plot
+(
+    ggplot(elliot_df, aes(x='year', y='Total')) +
+    geom_line(color='blue', size=1) +  # Blue trend line
+    geom_vline(xintercept=1982, colour="red", linetype='dashed', size=1) +  # E.T Released
+    geom_vline(xintercept=1985, colour="red", linetype='dashed', size=1) +  # Second Release
+    geom_vline(xintercept=2002, colour="red", linetype='dashed', size=1) +  # Third Release
+    ggtitle("Elliot... What?") + 
+    xlab("Year") + 
+    ylab("Total") + 
+    theme_minimal()
+)
+
+```

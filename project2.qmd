@@ -76,7 +76,7 @@ _A Client has requested this analysis and this is your one shot of what you woul
 # Learn morea about Code Cells: https://quarto.org/docs/reference/cells/cells-jupyter.html
 
 # Include and execute your code here
-df = pd.read_json("flights_missing.json")
+df = pd.read_json("https://github.com/byuidatascience/data4missing/raw/master/data-raw/flights_missing/flights_missing.json")
 ```
 
 __Highlight the Questions and Tasks__
@@ -122,7 +122,7 @@ __COPY PASTE QUESTION|TASK 2 FROM THE PROJECT HERE__
 # (
 # #   ggplot(df.head(500), aes(x='displ', y='hwy')) + geom_point()
 # # )
-# ```
+```
 
 ## Question|Task 3
 
