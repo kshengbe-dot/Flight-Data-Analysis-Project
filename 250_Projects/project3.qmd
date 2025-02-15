@@ -1,0 +1,230 @@
+---
+title: "Finding Relationships in Baseball"
+subtitle: "Course DS 250"
+author: "Shengbe Koker"
+format:
+  html:
+    self-contained: true
+    page-layout: full
+    title-block-banner: true
+    toc: true
+    toc-depth: 3
+    toc-location: body
+    number-sections: false
+    html-math-method: katex
+    code-fold: true
+    code-summary: "Show the code"
+    code-overflow: wrap
+    code-copy: hover
+    code-tools:
+        source: false
+        toggle: true
+        caption: See code
+execute: 
+  warning: false
+    
+---
+
+
+### Introduction
+
+<!-- highlight line 31 to the end and use ctrl + / (win) or command + / (mac) to uncomment out the code below, the same shortcut can be used to comment out code again. -->
+
+```{python}
+#Import libraries 
+import pandas as pd 
+import numpy as np
+import plotly.express as px
+import sqlite3
+from IPython.display 
+import display, HTML
+
+# Load the dataset
+con = sqlite3.connect('shengbeWt25/250_Projects/lahmansbaseballdb.sqlite')
+```
+
+ ### Swinging for Success: The Financial Impact of Baseball Excellence
+
+This analysis gives an overview of the careers of BYU-Idaho baseball alumni and shows how athletic success can lead to financial rewards. It looks at how rare perfect batting seasons are and highlights players who consistently perform well and support the sport. The study also explores how big teams like the Yankees and Red Sox spend money to invest in top players. This is not just about numbers – it is a story of hard work, strategy, and money that shapes professional baseball and interests both fans and analysts.
+
+
+### BYU-Idaho Baseball Alumni Salaries
+
+This table shows the salaries of BYU-Idaho alumni who played professional baseball, covering different years and teams. One player, in particular, earned up to $4 million in 2014, showing the potential rewards of a successful career. The table highlights how player earnings vary widely, reflecting different career paths, team investments, and individual success. These salaries demonstrate both the challenges and opportunities for players, offering insight into the financial side of professional baseball careers.
+
+
+```{python}
+q_byui_players = """
+SELECT DISTINCT cp.playerID, cp.schoolID, s.salary, s.yearID, s.teamID
+FROM collegeplaying cp
+JOIN salaries s ON cp.playerID = s.playerID
+JOIN schools sch ON cp.schoolID = sch.schoolID
+WHERE sch.name_full = 'Brigham Young University-Idaho'
+ORDER BY s.salary DESC;
+"""
+
+byui_players_df = pd.read_sql_query(q_byui_players, con)
+
+
+styled_byui_df = byui_players_df.style.set_table_styles(
+    [{'selector': 'th',
+      'props': [('background-color', '#4CAF50'), ('color', 'white')]},
+     {'selector': 'td',
+      'props': [('text-align', 'center')]},
+     {'selector': 'tr:nth-of-type(odd)',
+      'props': [('background-color', '#f2f2f2')]},
+     {'selector': 'tr:hover',
+      'props': [('background-color', '#ddd')]},
+     {'selector': 'table',
+      'props': [('margin', 'auto'), ('width', '80%'), ('border-collapse', 'collapse')]},
+     {'selector': 'th, td',
+      'props': [('border', '1px solid #ddd'), ('padding', '8px')]}]
+).set_properties(**{'font-size': '12pt', 'font-family': 'Calibri'})
+
+styled_byui_df
+
+```
+
+
+## Batting Average Highlights in Baseball History
+
+### Single Season Batting Perfection
+
+This section highlights exceptional moments in baseball history where players achieved a perfect 1.000 batting average for a season. This means they got a hit every time they stepped up to bat, though they had very few at-bats during the year. These performances are rare and impressive but often come from limited opportunities, like just a handful of at-bats. While these stats don’t reflect a player’s typical performance, they stand out as unique achievements in the sport.
+
+
+```{python}
+q_2_a = """
+SELECT playerID, yearID, CAST(H AS FLOAT) / AB AS batting_average
+FROM batting
+WHERE AB >= 1
+ORDER BY batting_average DESC, playerID
+LIMIT 5;
+"""
+
+batting_avg_1 = pd.read_sql_query(q_2_a, con)
+
+styled_batting1_df = batting_avg_1.style.set_table_styles(
+    [{'selector': 'th',
+      'props': [('background-color', '#4CAF50'), ('color', 'white')]},
+     {'selector': 'td',
+      'props': [('text-align', 'center')]},
+     {'selector': 'tr:nth-of-type(odd)',
+      'props': [('background-color', '#f2f2f2')]},
+     {'selector': 'tr:hover',
+      'props': [('background-color', '#ddd')]},
+     {'selector': 'table',
+      'props': [('margin', 'auto'), ('width', '80%'), ('border-collapse', 'collapse')]},
+     {'selector': 'th, td',
+      'props': [('border', '1px solid #ddd'), ('padding', '8px')]}]
+).set_properties(**{'font-size': '12pt', 'font-family': 'Calibri'})
+
+styled_batting1_df
+
+```
+
+
+### Seasonal Batting Excellence with Minimum Engagement
+
+This table highlights players who had outstanding batting averages while stepping up to bat at least 10 times in a season. The results showcase impressive performances, with averages well over 0.600, meaning these players got hits in more than 60% of their at-bats. Such high averages are rare and reflect exceptional hitting abilities during those seasons, marking these players as standout contributors to their teams.
+
+```{python}
+q_2_b = """
+SELECT playerID, yearID, CAST(H AS FLOAT) / AB AS batting_average
+FROM batting
+WHERE AB >=10
+ORDER BY batting_average DESC, playerID
+LIMIT 5;
+"""
+
+batting_avg_2 = pd.read_sql_query(q_2_b, con)
+
+styled_batting2_df = batting_avg_2.style.set_table_styles(
+    [{'selector': 'th',
+      'props': [('background-color', '#4CAF50'), ('color', 'white')]},
+     {'selector': 'td',
+      'props': [('text-align', 'center')]},
+     {'selector': 'tr:nth-of-type(odd)',
+      'props': [('background-color', '#f2f2f2')]},
+     {'selector': 'tr:hover',
+      'props': [('background-color', '#ddd')]},
+     {'selector': 'table',
+      'props': [('margin', 'auto'), ('width', '80%'), ('border-collapse', 'collapse')]},
+     {'selector': 'th, td',
+      'props': [('border', '1px solid #ddd'), ('padding', '8px')]}]
+).set_properties(**{'font-size': '12pt', 'font-family': 'Calibri'})
+
+styled_batting2_df
+```
+
+
+### Career Batting Legends with Sustained Success
+
+This section adds up all the hits and at-bats throughout a player's entire career, only including those with at least 100 at-bats. The players listed here achieved the highest career batting averages, showcasing their consistency and exceptional ability to hit the ball over many years. These steady performers were not just one-season wonders—they maintained their success across countless games, earning recognition as some of the best hitters in baseball history.
+
+```{python}
+q_2_c = """
+SELECT playerID, 
+      SUM(H) AS total_hits, 
+      SUM(AB) AS total_at_bats,
+      CASE
+        WHEN SUM(AB) = 0 THEN 0
+        ELSE SUM(H) * 1.0 / SUM(AB)
+      END AS career_batting_average
+FROM batting
+GROUP BY playerID
+HAVING SUM(AB) >=100
+ORDER BY career_batting_average DESC
+LIMIT 5;
+"""
+
+batting_avg_3 = pd.read_sql_query(q_2_c, con)
+
+styled_batting3_df = batting_avg_3.style.set_table_styles(
+    [{'selector': 'th',
+      'props': [('background-color', '#4CAF50'), ('color', 'white')]},
+     {'selector': 'td',
+      'props': [('text-align', 'center')]},
+     {'selector': 'tr:nth-of-type(odd)',
+      'props': [('background-color', '#f2f2f2')]},
+     {'selector': 'tr:hover',
+      'props': [('background-color', '#ddd')]},
+     {'selector': 'table',
+      'props': [('margin', 'auto'), ('width', '80%'), ('border-collapse', 'collapse')]},
+     {'selector': 'th, td',
+      'props': [('border', '1px solid #ddd'), ('padding', '8px')]}]
+).set_properties(**{'font-size': '12pt', 'font-family': 'Calibri'})
+
+styled_batting3_df
+
+``` 
+
+### Financial Power Play: Yankees vs. Red Sox Salary Trends
+
+This graph compares the average salaries of players for the New York Yankees and the Boston Red Sox over time. Both teams have increased their spending on players, but the Yankees usually spend more, especially after the early 2000s. This shows the Yankees' strategy to invest heavily in top players to stay competitive. The ups and downs in the graph could be caused by changes in team management, financial decisions, or the overall economy of baseball. While both teams show growth in salaries, the Yankees' higher spending highlights their stronger financial position in the sport.
+
+```{python}
+q_comparison = """
+SELECT t.teamID, t.name, t.yearID, AVG(s.salary) AS avg_salary
+FROM salaries s
+JOIN teams t ON s.teamID = t.teamID AND s.yearID = t.yearID
+WHERE t.teamID IN ('NYA', 'BOS')
+GROUP BY t.teamID, t.yearID
+ORDER BY t.yearID, t.teamID;
+"""
+
+team_comparison_df = pd.read_sql_query(q_comparison, con)
+
+
+chart_comparison = px.line(team_comparison_df, x='yearID', y='avg_salary', color='name',
+                    labels={'yearID': 'Year', 'avg_salary': 'Average Salary'},
+                    title='Average Salary Comparison: New York Yankees vs Boston Red Sox')
+
+chart_comparison.show()
+
+``` 
+
+
+
+
+
