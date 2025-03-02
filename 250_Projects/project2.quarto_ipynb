@@ -35,12 +35,11 @@
         "\n",
         "\n",
         "\n",
-        "\n",
         "### Introduction\n",
         "\n",
         "<!-- highlight line 31 to the end and use ctrl + / (win) or command + / (mac) to uncomment out the code below, the same shortcut can be used to comment out code again. -->\n"
       ],
-      "id": "9c2eb4e9"
+      "id": "acb439b7"
     },
     {
       "cell_type": "code",
@@ -51,12 +50,13 @@
         "import numpy as np\n",
         "import plotly.express as px\n",
         "import sqlite3\n",
-        "from IPython.display import display, HTML\n",
+        "from IPython.display \n",
+        "import display, HTML\n",
         "\n",
         "# Load the dataset\n",
-        "con = sqlite3.connect('shengbeFA24_o/250_Projects/lahmansbaseballdb.sqlite')"
+        "con = sqlite3.connect('shengbeWt25/250_Projects/lahmansbaseballdb.sqlite')"
       ],
-      "id": "9fd00244",
+      "id": "c07b588f",
       "execution_count": null,
       "outputs": []
     },
@@ -73,7 +73,7 @@
         "\n",
         "This table shows the salaries of BYU-Idaho alumni who played professional baseball, covering different years and teams. One player, in particular, earned up to $4 million in 2014, showing the potential rewards of a successful career. The table highlights how player earnings vary widely, reflecting different career paths, team investments, and individual success. These salaries demonstrate both the challenges and opportunities for players, offering insight into the financial side of professional baseball careers.\n"
       ],
-      "id": "13ba77f2"
+      "id": "d05636fa"
     },
     {
       "cell_type": "code",
@@ -108,7 +108,7 @@
         "\n",
         "styled_byui_df"
       ],
-      "id": "4db1c9b8",
+      "id": "ee3dfe29",
       "execution_count": null,
       "outputs": []
     },
@@ -122,7 +122,7 @@
         "\n",
         "This section highlights exceptional moments in baseball history where players achieved a perfect 1.000 batting average for a season. This means they got a hit every time they stepped up to bat, though they had very few at-bats during the year. These performances are rare and impressive but often come from limited opportunities, like just a handful of at-bats. While these stats don’t reflect a player’s typical performance, they stand out as unique achievements in the sport.\n"
       ],
-      "id": "a8607721"
+      "id": "d7e1ddfe"
     },
     {
       "cell_type": "code",
@@ -155,7 +155,7 @@
         "\n",
         "styled_batting1_df"
       ],
-      "id": "5852babf",
+      "id": "a8d0176c",
       "execution_count": null,
       "outputs": []
     },
@@ -167,7 +167,7 @@
         "\n",
         "This table highlights players who had outstanding batting averages while stepping up to bat at least 10 times in a season. The results showcase impressive performances, with averages well over 0.600, meaning these players got hits in more than 60% of their at-bats. Such high averages are rare and reflect exceptional hitting abilities during those seasons, marking these players as standout contributors to their teams.\n"
       ],
-      "id": "e140a913"
+      "id": "ea368bf5"
     },
     {
       "cell_type": "code",
@@ -200,7 +200,7 @@
         "\n",
         "styled_batting2_df"
       ],
-      "id": "5da030c3",
+      "id": "bf808333",
       "execution_count": null,
       "outputs": []
     },
@@ -212,7 +212,7 @@
         "\n",
         "This section adds up all the hits and at-bats throughout a player's entire career, only including those with at least 100 at-bats. The players listed here achieved the highest career batting averages, showcasing their consistency and exceptional ability to hit the ball over many years. These steady performers were not just one-season wonders—they maintained their success across countless games, earning recognition as some of the best hitters in baseball history.\n"
       ],
-      "id": "bbc3b052"
+      "id": "b34502d2"
     },
     {
       "cell_type": "code",
@@ -252,7 +252,7 @@
         "\n",
         "styled_batting3_df"
       ],
-      "id": "49df2a2e",
+      "id": "d3c6c915",
       "execution_count": null,
       "outputs": []
     },
@@ -264,7 +264,7 @@
         "\n",
         "This graph compares the average salaries of players for the New York Yankees and the Boston Red Sox over time. Both teams have increased their spending on players, but the Yankees usually spend more, especially after the early 2000s. This shows the Yankees' strategy to invest heavily in top players to stay competitive. The ups and downs in the graph could be caused by changes in team management, financial decisions, or the overall economy of baseball. While both teams show growth in salaries, the Yankees' higher spending highlights their stronger financial position in the sport.\n"
       ],
-      "id": "b5b9bea5"
+      "id": "b65b213f"
     },
     {
       "cell_type": "code",
@@ -288,7 +288,7 @@
         "\n",
         "chart_comparison.show()"
       ],
-      "id": "8c4c7c9d",
+      "id": "d3d09a9d",
       "execution_count": null,
       "outputs": []
     }
